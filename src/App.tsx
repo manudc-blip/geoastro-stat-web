@@ -178,9 +178,7 @@ function translateCategory(label: string, lang: "fr" | "en") {
   return categoryTranslations[label] ?? label;
 }
 
-const PANEL_BG = "#FAFAF7";
 const BORDER = "#cfd6df";
-const HEADER_BG = "#eef0f4";
 const TAB_BG = "#f3f4f6";
 const ACTIVE_TAB_BG = "#FAFAF7";
 
@@ -1725,11 +1723,6 @@ function buildGaussCurveSvg(
     return `${xScale(x)},${yScale(gauss(x))}`;
   }).join(" ");
 
-  const areaPoints =
-    `${xScale(0)},${yScale(0)} ` +
-    points +
-    ` ${xScale(100)},${yScale(0)}`;
-
   const leftArea = Array.from({ length: 41 }, (_, i) => {
     const x = (i / 40) * 5;
     return `${xScale(x)},${yScale(gauss(x))}`;
@@ -1755,7 +1748,6 @@ function buildGaussCurveSvg(
       const lineX = xScale(marker.value);
       const valueClamped = Math.max(0.1, Math.min(99.9, marker.value));
       const rank = rankMap.get(marker.item) ?? 0;
-      const lastRank = Math.max(0, orderedMarkers.length - 1);
 
       const textAnchor =
         valueClamped >= 92
@@ -2575,10 +2567,6 @@ function App() {
       setCurveImage(null);
       return;
     }
-
-    const dataUrl =
-      "data:image/svg+xml;charset=utf-8," +
-      encodeURIComponent(svg);
 
     setCurveImage(dataUrl);
   }, [
