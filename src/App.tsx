@@ -2507,12 +2507,6 @@ function App() {
     },
   }[lang];
 
-  const cellStyle = {
-    padding: "7px 8px",
-    borderBottom: "1px solid #d6d9de",
-    fontSize: 14,
-  };
-
   const curveElementOptions =
     (curvePopulation === "hf" || curveMode === "kde") &&
     curveCategory === "familles_zodiacales"
@@ -2604,10 +2598,6 @@ function App() {
             showZP,
             histogramTitle
           );
-
-    const dataUrl =
-      "data:image/svg+xml;charset=utf-8," +
-      encodeURIComponent(svg);
 
     setHistogramImage(dataUrl);
   }, [
@@ -4033,6 +4023,10 @@ function App() {
                       );
                       return;
                     }
+
+                    const dataUrl =
+                      "data:image/svg+xml;charset=utf-8," +
+                      encodeURIComponent(svg);
 
                     const dataUrl =
                       "data:image/svg+xml;charset=utf-8," +
