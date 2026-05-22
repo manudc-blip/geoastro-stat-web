@@ -2603,6 +2603,10 @@ function App() {
             histogramTitle
           );
 
+    const dataUrl =
+      "data:image/svg+xml;charset=utf-8," +
+      encodeURIComponent(svg);
+
     setHistogramImage(dataUrl);
   }, [
     showZP,
@@ -4027,6 +4031,12 @@ function App() {
                       );
                       return;
                     }
+
+                    const dataUrl =
+                      "data:image/svg+xml;charset=utf-8," +
+                      encodeURIComponent(svg);
+
+                    setCurveImage(dataUrl);
 
                     setCurveGeneratedOnce(true);
                   }}
