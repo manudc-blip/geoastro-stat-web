@@ -2562,6 +2562,10 @@ function App() {
       return;
     }
 
+    const dataUrl =
+      "data:image/svg+xml;charset=utf-8," +
+      encodeURIComponent(svg);
+
     setCurveImage(dataUrl);
   }, [
     curveGeneratedOnce,
@@ -3479,6 +3483,10 @@ function App() {
                       "data:image/svg+xml;charset=utf-8," +
                       encodeURIComponent(svg);
 
+                      const dataUrl =
+                        "data:image/svg+xml;charset=utf-8," +
+                        encodeURIComponent(svg);
+
                     setHistogramImage(dataUrl);
                   }}
 
@@ -4023,10 +4031,6 @@ function App() {
                       );
                       return;
                     }
-
-                    const dataUrl =
-                      "data:image/svg+xml;charset=utf-8," +
-                      encodeURIComponent(svg);
 
                     const dataUrl =
                       "data:image/svg+xml;charset=utf-8," +
