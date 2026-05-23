@@ -2299,6 +2299,20 @@ async function exportSvgDataUrlAsPng(dataUrl: string, filename: string) {
   window.URL.revokeObjectURL(pngUrl);
 }
 
+function statResultsFromCsvRows(rows: CsvRow[]): StatResult[] {
+  return rows.map((row) => ({
+    Catégorie: row["Catégorie astrologique"] ?? row["Catégorie"] ?? row["Categorie"] ?? "",
+    effectif_reel: toNumber(row["Moyenne de l’échantillon"] ?? row["effectif_reel"]),
+    moyenne: toNumber(row["Moyenne de la distribution"] ?? row["moyenne"]),
+    ecart_type: toNumber(row["Écart-type"] ?? row["ecart_type"]),
+    z_score: toNumber(row["Z-score"] ?? row["z_score"]),
+    p_gt: toNumber(row["Proba empirique (surval)"] ?? row["p_gt"]),
+    p_lt: toNumber(row["Proba empirique (sous-val)"] ?? row["p_lt"]),
+    pval_gt: toNumber(row["P-value (surval)"] ?? row["pval_gt"]),
+    pval_lt: toNumber(row["P-value (sous-val)"] ?? row["pval_lt"]),
+  }));
+}
+
 function App() {
   const [file, setFile] = useState<File | null>(null);
   const [results, setResults] = useState<StatResult[]>([]);
@@ -2348,11 +2362,79 @@ function App() {
   const [curveImage, setCurveImage] = useState<string | null>(null);
   const [curveGeneratedOnce, setCurveGeneratedOnce] = useState(false);
   const [curveFileType, setCurveFileType] = useState<"global" | "hf" | "kde" | null>(null);
-
+  const [isTrialMode] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("trial") === "fields";
+  });
+  
   const [lastAnalysisData, setLastAnalysisData] = useState<any>(null);
   const [progress, setProgress] = useState(0);
   const [calculationDone, setCalculationDone] = useState(false);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlLang = params.get("lang");
+
+    if (urlLang === "en") {
+      setLang("en");
+    }
+
+    if (urlLang === "fr") {
+      setLang("fr");
+    }
+  }, []);
+
+    useEffect(() => {
+    if (!isTrialMode) return;
+
+    async function loadTrialFields() {
+      const [cohortText, resultsText, kdeText] = await Promise.all([
+        fetch("/trial/fields_cohort.csv").then((r) => r.text()),
+        fetch("/trial/fields_results.csv").then((r) => r.text()),
+        fetch("/trial/fields_kde.csv").then((r) => r.text()),
+      ]);
+
+      const resultsRows = parseCsvText(resultsText);
+      const kdeRows = parseCsvText(kdeText);
+
+      const cohortFile = new File([cohortText], "Les médaillés Fields.csv", {
+        type: "text/csv",
+      });
+
+      const resultsFile = new File([resultsText], "Médaillés Fields - résultats.csv", {
+        type: "text/csv",
+      });
+
+      const kdeFile = new File([kdeText], "Médaillés Fields - KDE.csv", {
+        type: "text/csv",
+      });
+
+      setFile(cohortFile);
+      setResults(statResultsFromCsvRows(resultsRows));
+      setCalculationDone(true);
+
+      setHistogramFile(resultsFile);
+      setHistogramRows(resultsRows);
+      setHistogramFileType("global");
+      setHistogramPopulation("global");
+      setHistogramNeedsManualGenerate(false);
+
+      setCurveFile(kdeFile);
+      setCurveRows(kdeRows);
+      setCurveFileType("kde");
+      setCurvePopulation("global");
+      setCurveMode("gauss");
+      setCurveGeneratedOnce(true);
+
+      setActiveTab("analysis");
+    }
+
+    loadTrialFields().catch((error) => {
+      console.error(error);
+      alert("Erreur lors du chargement du mode essai.");
+    });
+  }, [isTrialMode]);
+  
   useEffect(() => {
     fetch(`https://geoastro-stat-api-production.up.railway.app/cohorts/list?lang=${lang}`)
       .then((response) => response.json())
@@ -2645,7 +2727,7 @@ function App() {
         {[
           { key: "analysis", label: txt.analysis },
           { key: "cohorts", label: txt.cohorts },
-          { key: "hf", label: txt.hf },
+          ...(isTrialMode ? [] : [{ key: "hf", label: txt.hf }]),
           { key: "histograms", label: txt.histograms },
           { key: "curves", label: txt.curves },
         ].map((tab) => (
