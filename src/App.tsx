@@ -2693,6 +2693,9 @@ function App() {
 
     setHistogramImage(dataUrl);
   }, [
+    histogramNeedsManualGenerate,
+    histogramRows,
+    histogramFile,
     showZP,
     histogramPopulation,
     histogramCategory,
@@ -2724,7 +2727,7 @@ function App() {
         {[
           { key: "analysis", label: txt.analysis },
           { key: "cohorts", label: txt.cohorts },
-          ...(isTrialMode ? [] : [{ key: "hf", label: txt.hf }]),
+          { key: "hf", label: txt.hf },
           { key: "histograms", label: txt.histograms },
           { key: "curves", label: txt.curves },
         ].map((tab) => (
@@ -2934,10 +2937,10 @@ function App() {
               <button
                 style={{
                   ...buttonStyle,
-                  backgroundColor: !selectedCohort ? "#e5e7eb" : "#f3f4f6",
-                  cursor: !selectedCohort ? "not-allowed" : "pointer",
+                  backgroundColor: isTrialMode || !selectedCohort ? "#e5e7eb" : "#f3f4f6",
+                  cursor: isTrialMode || !selectedCohort ? "not-allowed" : "pointer",
                 }}
-                disabled={!selectedCohort}
+                disabled={isTrialMode || !selectedCohort}
                 onClick={async () => {
                 if (!selectedCohort) return;
 
@@ -3086,18 +3089,18 @@ function App() {
                   style={{
                     ...buttonStyle,
                     backgroundColor:
-                      !maleFile || !femaleFile
+                      isTrialMode || !maleFile || !femaleFile
                         ? "#e5e7eb"
                         : "#f3f4f6",
                     cursor:
-                      !maleFile || !femaleFile
+                      isTrialMode || !maleFile || !femaleFile
                         ? "not-allowed"
                         : "pointer",
                   }}
-                  disabled={!maleFile || !femaleFile}
+                  disabled={isTrialMode || !maleFile || !femaleFile}
 
                   onClick={async () => {
-                  if (!maleFile || !femaleFile) return;
+                  if (isTrialMode || !maleFile || !femaleFile) return;
 
                   const formData = new FormData();
                   formData.append("male_file", maleFile);
