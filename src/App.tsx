@@ -2982,46 +2982,54 @@ function App() {
                 style={inputStyle}
               />
 
-                <HelpTooltip lang={lang} tooltipKey="hf_browse_m">
-                  <label
-                    style={{
-                      ...buttonStyle,
-                      textAlign: "center",
-                      backgroundColor: isTrialMode ? "#e5e7eb" : "#f3f4f6",
-                      cursor: isTrialMode ? "not-allowed" : "pointer",
-                    }}
-                  >
-                    {lang === "fr" ? "Parcourir..." : "Browse..."}
-                    <input
-                      type="file"
-                      accept=".csv"
-                      disabled={isTrialMode}
-                      style={{ display: "none" }}
-                      onChange={async (e) => {
-                        if (isTrialMode) return;
-
-                    const text = await readFileAsText(f);
-                    const rows = parseCsvText(text);
-                    const fileType = detectHistogramCsvType(rows);
-
-                    if (fileType !== "global") {
-                      alert(
-                        lang === "fr"
-                          ? "Le fichier Hommes doit être un fichier de résultats statistiques exporté depuis l’onglet Analyse."
-                          : "The male file must be a statistical results file exported from the Analysis tab."
-                      );
-
-                      setMaleFile(null);
-                      setHfSummary("");
-                      e.target.value = "";
-                      return;
-                    }
-
-                    setMaleFile(f);
-                    setHfSummary("");
+              <HelpTooltip lang={lang} tooltipKey="hf_browse_m">
+                <label
+                  style={{
+                    ...buttonStyle,
+                    textAlign: "center",
+                    backgroundColor: isTrialMode ? "#e5e7eb" : "#f3f4f6",
+                    cursor: isTrialMode ? "not-allowed" : "pointer",
                   }}
-                />
-              </label>
+                >
+                  {lang === "fr" ? "Parcourir..." : "Browse..."}
+                  <input
+                    type="file"
+                    accept=".csv"
+                    disabled={isTrialMode}
+                    style={{ display: "none" }}
+                    onChange={async (e) => {
+                      if (isTrialMode) return;
+
+                      const f = e.target.files?.[0] ?? null;
+
+                      if (!f) {
+                        setMaleFile(null);
+                        setHfSummary("");
+                        return;
+                      }
+
+                      const text = await readFileAsText(f);
+                      const rows = parseCsvText(text);
+                      const fileType = detectHistogramCsvType(rows);
+
+                      if (fileType !== "global") {
+                        alert(
+                          lang === "fr"
+                            ? "Le fichier Hommes doit être un fichier de résultats statistiques exporté depuis l’onglet Analyse."
+                            : "The male file must be a statistical results file exported from the Analysis tab."
+                        );
+
+                        setMaleFile(null);
+                        setHfSummary("");
+                        e.target.value = "";
+                        return;
+                      }
+
+                      setMaleFile(f);
+                      setHfSummary("");
+                    }}
+                  />
+                </label>
               </HelpTooltip>
             </div>
 
@@ -3034,46 +3042,54 @@ function App() {
                 style={inputStyle}
               />
 
-                <HelpTooltip lang={lang} tooltipKey="hf_browse_f">
-                  <label
-                    style={{
-                      ...buttonStyle,
-                      textAlign: "center",
-                      backgroundColor: isTrialMode ? "#e5e7eb" : "#f3f4f6",
-                      cursor: isTrialMode ? "not-allowed" : "pointer",
-                    }}
-                  >
-                    {lang === "fr" ? "Parcourir..." : "Browse..."}
-                    <input
-                      type="file"
-                      accept=".csv"
-                      disabled={isTrialMode}
-                      style={{ display: "none" }}
-                      onChange={async (e) => {
-                        if (isTrialMode) return;
-
-                    const text = await readFileAsText(f);
-                    const rows = parseCsvText(text);
-                    const fileType = detectHistogramCsvType(rows);
-
-                    if (fileType !== "global") {
-                      alert(
-                        lang === "fr"
-                          ? "Le fichier Femmes doit être un fichier de résultats statistiques exporté depuis l’onglet Analyse."
-                          : "The female file must be a statistical results file exported from the Analysis tab."
-                      );
-
-                      setFemaleFile(null);
-                      setHfSummary("");
-                      e.target.value = "";
-                      return;
-                    }
-
-                    setFemaleFile(f);
-                    setHfSummary("");
+              <HelpTooltip lang={lang} tooltipKey="hf_browse_f">
+                <label
+                  style={{
+                    ...buttonStyle,
+                    textAlign: "center",
+                    backgroundColor: isTrialMode ? "#e5e7eb" : "#f3f4f6",
+                    cursor: isTrialMode ? "not-allowed" : "pointer",
                   }}
-                />
-              </label>
+                >
+                  {lang === "fr" ? "Parcourir..." : "Browse..."}
+                  <input
+                    type="file"
+                    accept=".csv"
+                    disabled={isTrialMode}
+                    style={{ display: "none" }}
+                    onChange={async (e) => {
+                      if (isTrialMode) return;
+
+                      const f = e.target.files?.[0] ?? null;
+
+                      if (!f) {
+                        setFemaleFile(null);
+                        setHfSummary("");
+                        return;
+                      }
+
+                      const text = await readFileAsText(f);
+                      const rows = parseCsvText(text);
+                      const fileType = detectHistogramCsvType(rows);
+
+                      if (fileType !== "global") {
+                        alert(
+                          lang === "fr"
+                            ? "Le fichier Femmes doit être un fichier de résultats statistiques exporté depuis l’onglet Analyse."
+                            : "The female file must be a statistical results file exported from the Analysis tab."
+                        );
+
+                        setFemaleFile(null);
+                        setHfSummary("");
+                        e.target.value = "";
+                        return;
+                      }
+
+                      setFemaleFile(f);
+                      setHfSummary("");
+                    }}
+                  />
+                </label>
               </HelpTooltip>
             </div>
 
