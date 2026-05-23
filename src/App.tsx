@@ -2387,10 +2387,12 @@ function App() {
     useEffect(() => {
     if (!isTrialMode) return;
 
-    const [cohortText, resultsText] = await Promise.all([
-      fetch("/trial/fields_cohort.csv").then((r) => r.text()),
-      fetch("/trial/fields_results.csv").then((r) => r.text()),
-    ]);
+
+    async function loadTrialFields() {
+      const [cohortText, resultsText] = await Promise.all([
+        fetch("/trial/fields_cohort.csv").then((r) => r.text()),
+        fetch("/trial/fields_results.csv").then((r) => r.text()),
+      ]);
 
       const resultsRows = parseCsvText(resultsText);
 
