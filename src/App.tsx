@@ -2387,25 +2387,18 @@ function App() {
     useEffect(() => {
     if (!isTrialMode) return;
 
-    async function loadTrialFields() {
-      const [cohortText, resultsText, kdeText] = await Promise.all([
-        fetch("/trial/fields_cohort.csv").then((r) => r.text()),
-        fetch("/trial/fields_results.csv").then((r) => r.text()),
-        fetch("/trial/fields_kde.csv").then((r) => r.text()),
-      ]);
+    const [cohortText, resultsText] = await Promise.all([
+      fetch("/trial/fields_cohort.csv").then((r) => r.text()),
+      fetch("/trial/fields_results.csv").then((r) => r.text()),
+    ]);
 
       const resultsRows = parseCsvText(resultsText);
-      const kdeRows = parseCsvText(kdeText);
 
       const cohortFile = new File([cohortText], "Les médaillés Fields.csv", {
         type: "text/csv",
       });
 
       const resultsFile = new File([resultsText], "Médaillés Fields - résultats.csv", {
-        type: "text/csv",
-      });
-
-      const kdeFile = new File([kdeText], "Médaillés Fields - KDE.csv", {
         type: "text/csv",
       });
 
@@ -2419,9 +2412,9 @@ function App() {
       setHistogramPopulation("global");
       setHistogramNeedsManualGenerate(false);
 
-      setCurveFile(kdeFile);
-      setCurveRows(kdeRows);
-      setCurveFileType("kde");
+      setCurveFile(resultsFile);
+      setCurveRows(resultsRows);
+      setCurveFileType("global");
       setCurvePopulation("global");
       setCurveMode("gauss");
       setCurveGeneratedOnce(true);
