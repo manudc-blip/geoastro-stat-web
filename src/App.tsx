@@ -2304,7 +2304,12 @@ function App() {
   const [results, setResults] = useState<StatResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [permutations, setPermutations] = useState(1000);
-  const [lang, setLang] = useState<"fr" | "en">("fr");
+  const getInitialLang = (): "fr" | "en" => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("lang") === "en" ? "en" : "fr";
+  };
+
+  const [lang, setLang] = useState<"fr" | "en">(getInitialLang);
   const [activeTab, setActiveTab] = useState("analysis");
   const [cohorts, setCohorts] = useState<string[]>([]);
 
