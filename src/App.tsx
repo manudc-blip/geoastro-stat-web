@@ -2982,26 +2982,23 @@ function App() {
                 style={inputStyle}
               />
 
-              <HelpTooltip lang={lang} tooltipKey="hf_browse_m">
-                <label
-                  style={{
-                    ...buttonStyle,
-                    textAlign: "center",
-                  }}
-                >
-                  {lang === "fr" ? "Parcourir..." : "Browse..."}
-                <input
-                  type="file"
-                  accept=".csv"
-                  style={{ display: "none" }}
-                  onChange={async (e) => {
-                    const f = e.target.files?.[0] ?? null;
-
-                    if (!f) {
-                      setMaleFile(null);
-                      setHfSummary("");
-                      return;
-                    }
+                <HelpTooltip lang={lang} tooltipKey="hf_browse_m">
+                  <label
+                    style={{
+                      ...buttonStyle,
+                      textAlign: "center",
+                      backgroundColor: isTrialMode ? "#e5e7eb" : "#f3f4f6",
+                      cursor: isTrialMode ? "not-allowed" : "pointer",
+                    }}
+                  >
+                    {lang === "fr" ? "Parcourir..." : "Browse..."}
+                    <input
+                      type="file"
+                      accept=".csv"
+                      disabled={isTrialMode}
+                      style={{ display: "none" }}
+                      onChange={async (e) => {
+                        if (isTrialMode) return;
 
                     const text = await readFileAsText(f);
                     const rows = parseCsvText(text);
@@ -3037,26 +3034,23 @@ function App() {
                 style={inputStyle}
               />
 
-              <HelpTooltip lang={lang} tooltipKey="hf_browse_f">
-                <label
-                  style={{
-                    ...buttonStyle,
-                    textAlign: "center",
-                  }}
-                >
-                  {lang === "fr" ? "Parcourir..." : "Browse..."}
-                <input
-                  type="file"
-                  accept=".csv"
-                  style={{ display: "none" }}
-                  onChange={async (e) => {
-                    const f = e.target.files?.[0] ?? null;
-
-                    if (!f) {
-                      setFemaleFile(null);
-                      setHfSummary("");
-                      return;
-                    }
+                <HelpTooltip lang={lang} tooltipKey="hf_browse_f">
+                  <label
+                    style={{
+                      ...buttonStyle,
+                      textAlign: "center",
+                      backgroundColor: isTrialMode ? "#e5e7eb" : "#f3f4f6",
+                      cursor: isTrialMode ? "not-allowed" : "pointer",
+                    }}
+                  >
+                    {lang === "fr" ? "Parcourir..." : "Browse..."}
+                    <input
+                      type="file"
+                      accept=".csv"
+                      disabled={isTrialMode}
+                      style={{ display: "none" }}
+                      onChange={async (e) => {
+                        if (isTrialMode) return;
 
                     const text = await readFileAsText(f);
                     const rows = parseCsvText(text);
