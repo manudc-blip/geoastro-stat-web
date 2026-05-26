@@ -286,8 +286,8 @@ const UI_TOOLTIPS: Record<Lang, Record<TooltipKey, string>> = {
 
     select_file: "Sélectionner un fichier CSV de naissance compatible avec l’analyse.",
     run_analysis: "Lancer le calcul statistique :\nfeatures réelles, permutations et agrégation par catégorie.",
-    export_results: "Exporter le tableau affiché au format CSV.",
-    include_kde: "Ajouter un second fichier CSV contenant les permutations,\nutilisable ensuite pour les courbes KDE.",
+    export_results: "Mode essai : l’export CSV est réservé à la version complète.",
+    include_kde: "Mode essai : l’export KDE est réservé à la version complète.",
 
     perm_1000: "Effectuer 1 000 permutations :\nplus rapide, mais moins précis.",
     perm_10000: "Effectuer 10 000 permutations :\nplus long, mais plus précis.",
@@ -341,8 +341,8 @@ const UI_TOOLTIPS: Record<Lang, Record<TooltipKey, string>> = {
 
     select_file: "Select a birth CSV file compatible with the analysis.",
     run_analysis: "Launch the statistical calculation:\nreal features, permutations and aggregation by category.",
-    export_results: "Export the displayed table as a CSV file.",
-    include_kde: "Add a second CSV file containing permutation samples,\nusable later for KDE curves.",
+    export_results: "Trial mode: CSV export is reserved for the full version.",
+    include_kde: "Trial mode: KDE export is reserved for the full version.",
 
     perm_1000: "Run 1,000 permutations:\nfaster, but less precise.",
     perm_10000: "Run 10,000 permutations:\nslower, but more precise.",
@@ -4528,9 +4528,15 @@ function App() {
                 }}
               >
                 <HelpTooltip lang={lang} tooltipKey="export_results">
-                <button
-                  style={buttonStyle}
-                  onClick={async () => {
+                  <button
+                    disabled={isTrialMode}
+                    style={{
+                      ...buttonStyle,
+                      backgroundColor: isTrialMode ? "#e5e7eb" : "#f3f4f6",
+                      cursor: isTrialMode ? "not-allowed" : "pointer",
+                    }}
+                    onClick={async () => {
+                      if (isTrialMode) return;
                     const header = [
                       txt.category,
                       txt.sampleMean,
@@ -4686,11 +4692,14 @@ function App() {
                       alignItems: "center",
                       gap: 6,
                       whiteSpace: "nowrap",
+                      cursor: isTrialMode ? "not-allowed" : "pointer",
+                      opacity: isTrialMode ? 0.6 : 1,
                     }}
                   >
                     <input
                       type="checkbox"
                       checked={includeKDE}
+                      disabled={isTrialMode}
                       onChange={(e) => setIncludeKDE(e.target.checked)}
                     />
 
