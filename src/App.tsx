@@ -86,6 +86,28 @@ async function saveBlobFile(filename: string, blob: Blob) {
   window.URL.revokeObjectURL(url);
 }
 
+async function getApiErrorMessage(response: Response) {
+  try {
+    const data = await response.json();
+
+    if (typeof data?.detail === "string") {
+      return data.detail;
+    }
+
+    if (typeof data?.message === "string") {
+      return data.message;
+    }
+
+    if (typeof data?.error === "string") {
+      return data.error;
+    }
+  } catch {
+    // Réponse non JSON
+  }
+
+  return "Erreur API.";
+}
+
 const categoryTranslations: Record<string, string> = {
   Soleil: "Sun",
   Lune: "Moon",
@@ -2476,6 +2498,12 @@ function App() {
         body: formData,
       });
 
+      if (!response.ok) {
+        const message = await getApiErrorMessage(response);
+        alert(message);
+        return;
+      }
+
       const data = await response.json();
 
       if (data.status === "success") {
@@ -2483,11 +2511,19 @@ function App() {
         setLastAnalysisData(data);
         setCalculationDone(true);
       } else {
-        alert("Erreur dans le calcul");
+        alert(
+          lang === "fr"
+            ? "Erreur dans le calcul."
+            : "Calculation error."
+        );
       }
     } catch (error) {
       console.error(error);
-      alert("Erreur API");
+      alert(
+        lang === "fr"
+          ? "Erreur API. Le serveur est temporairement indisponible."
+          : "API error. The server is temporarily unavailable."
+      );
     }
 
     window.clearInterval(progressTimer);
