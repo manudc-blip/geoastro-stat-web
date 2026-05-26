@@ -108,6 +108,14 @@ async function getApiErrorMessage(response: Response) {
   return "Erreur API.";
 }
 
+function isTrialAllowedCohort(cohort: string | null, lang: Lang) {
+  if (!cohort) return false;
+
+  return lang === "fr"
+    ? cohort === "Médaillés Fields"
+    : cohort === "Fields medalists";
+}
+
 const categoryTranslations: Record<string, string> = {
   Soleil: "Sun",
   Lune: "Moon",
@@ -2971,14 +2979,38 @@ function App() {
           <div style={{ textAlign: "center", marginTop: 12 }}>
             <HelpTooltip lang={lang} tooltipKey="export_selected_cohort">
               <button
-                style={{
-                  ...buttonStyle,
-                  backgroundColor: isTrialMode || !selectedCohort ? "#e5e7eb" : "#f3f4f6",
-                  cursor: isTrialMode || !selectedCohort ? "not-allowed" : "pointer",
-                }}
-                disabled={isTrialMode || !selectedCohort}
-                onClick={async () => {
-                if (!selectedCohort) return;
+            style={{
+              ...buttonStyle,
+
+              backgroundColor:
+                !selectedCohort ||
+                (isTrialMode &&
+                  !isTrialAllowedCohort(selectedCohort, lang))
+                  ? "#e5e7eb"
+                  : "#f3f4f6",
+
+              cursor:
+                !selectedCohort ||
+                (isTrialMode &&
+                  !isTrialAllowedCohort(selectedCohort, lang))
+                  ? "not-allowed"
+                  : "pointer",
+            }}
+
+            disabled={
+              !selectedCohort ||
+              (isTrialMode &&
+                !isTrialAllowedCohort(selectedCohort, lang))
+            }
+
+            onClick={async () => {
+              if (
+                !selectedCohort ||
+                (isTrialMode &&
+                  !isTrialAllowedCohort(selectedCohort, lang))
+              ) {
+                return;
+              }
 
                 const filename = selectedCohort.endsWith(".csv")
                   ? selectedCohort
