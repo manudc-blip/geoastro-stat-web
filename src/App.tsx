@@ -4311,16 +4311,22 @@ function App() {
             </legend>
 
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <HelpTooltip lang={lang} tooltipKey="select_file">
+            <HelpTooltip lang={lang} tooltipKey="select_file">
                 <label
-                  style={buttonStyle}
+                    style={{
+                        ...buttonStyle,
+                        backgroundColor: isTrialMode ? "#e5e7eb" : "#f3f4f6",
+                        cursor: isTrialMode ? "not-allowed" : "pointer",
+                    }}
                 >
-                  {txt.loadCsv}
-                  <input
-                    type="file"
-                    accept=".csv"
-                    style={{ display: "none" }}
-                    onChange={async (e) => {
+                    {txt.loadCsv}
+                    <input
+                        type="file"
+                        accept=".csv"
+                        disabled={isTrialMode}
+                        style={{ display: "none" }}
+                        onChange={async (e) => {
+                            if (isTrialMode) return;
                       const f = e.target.files?.[0] ?? null;
 
                       if (!f) {
