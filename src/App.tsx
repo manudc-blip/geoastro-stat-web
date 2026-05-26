@@ -3671,8 +3671,13 @@ function App() {
                       style={{
                         ...buttonStyle,
                         padding: "6px 14px",
+                        backgroundColor: isTrialMode ? "#e5e7eb" : "#f3f4f6",
+                        cursor: isTrialMode ? "not-allowed" : "pointer",
                       }}
+                      disabled={isTrialMode}
                       onClick={async () => {
+                        if (isTrialMode) return;
+
                         await exportSvgDataUrlAsPng(
                           histogramImage,
                           "histogramme_geoastro.png"
@@ -4212,12 +4217,17 @@ function App() {
                 {curveImage && (
                   <button
                     title={UI_TOOLTIPS[lang].curve_export}
+                    disabled={isTrialMode}
                     style={{
                       ...buttonStyle,
                       padding: "6px 14px",
+                      backgroundColor: isTrialMode ? "#e5e7eb" : "#f3f4f6",
+                      cursor: isTrialMode ? "not-allowed" : "pointer",
                     }}
 
                     onClick={async () => {
+                      if (isTrialMode) return;
+
                       await exportSvgDataUrlAsPng(
                         curveImage,
                         "courbe_geoastro.png"
