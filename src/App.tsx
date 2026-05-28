@@ -2419,7 +2419,7 @@ function App() {
 
 
     async function loadTrialFields() {
-      const trialBaseUrl = "https://geoastro.org/trial";
+      const trialBaseUrl = "/trial";
 
       const [cohortText, resultsText] = await Promise.all([
         fetch(`${trialBaseUrl}/fields_cohort.csv`).then((r) => r.text()),
