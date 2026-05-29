@@ -2803,6 +2803,31 @@ function App() {
             </div>
           </HelpTooltip>
         ))}
+        <div
+          onClick={async () => {
+            try {
+              await fetch("https://geoastro.org/api/auth/logout", {
+                method: "POST",
+                credentials: "include",
+              });
+            } finally {
+              window.location.href = "https://geoastro.org/";
+            }
+          }}
+          style={{
+            marginLeft: "auto",
+            padding: "8px 20px",
+            borderLeft: `1px solid ${BORDER}`,
+            borderTop: "2px solid transparent",
+            backgroundColor: TAB_BG,
+            fontWeight: 400,
+            cursor: "pointer",
+            fontSize: 13,
+            transition: "all 0.15s ease",
+          }}
+        >
+          {lang === "fr" ? "Déconnexion" : "Log out"}
+        </div>
       </div>
 
       {activeTab === "cohorts" && (
