@@ -2432,7 +2432,11 @@ useEffect(() => {
   const [curveFileType, setCurveFileType] = useState<"global" | "hf" | "kde" | null>(null);
   const [isTrialMode] = useState(() => {
     const params = new URLSearchParams(window.location.search);
-    return params.get("trial") === "fields";
+    const hasAccessToken =
+      params.has("access_token") ||
+      sessionStorage.getItem("geoastro_stat_access_token");
+
+    return params.get("trial") === "fields" && !hasAccessToken;
   });
   
   const [lastAnalysisData, setLastAnalysisData] = useState<any>(null);
