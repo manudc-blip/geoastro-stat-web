@@ -108,6 +108,41 @@ async function getApiErrorMessage(response: Response) {
   return "Erreur API.";
 }
 
+const API_BASE_URL = "https://geoastro-stat-api-production.up.railway.app";
+
+function storeAccessTokenFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("access_token");
+
+  if (!token) {
+    return;
+  }
+
+  sessionStorage.setItem("geoastro_stat_access_token", token);
+
+  params.delete("access_token");
+
+  const cleanQuery = params.toString();
+  const cleanUrl =
+    window.location.pathname +
+    (cleanQuery ? `?${cleanQuery}` : "") +
+    window.location.hash;
+
+  window.history.replaceState({}, document.title, cleanUrl);
+}
+
+function getAccessHeaders(): HeadersInit {
+  const token = sessionStorage.getItem("geoastro_stat_access_token");
+
+  if (!token) {
+    return {};
+  }
+
+  return {
+    Authorization: `Bearer ${token}`,
+  };
+}
+
 function isTrialAllowedCohort(cohort: string | null, lang: Lang) {
   if (!cohort) return false;
 
@@ -2344,6 +2379,9 @@ function statResultsFromCsvRows(rows: CsvRow[]): StatResult[] {
 }
 
 function App() {
+useEffect(() => {
+  storeAccessTokenFromUrl();
+}, []);
   const [file, setFile] = useState<File | null>(null);
   const [results, setResults] = useState<StatResult[]>([]);
   const [loading, setLoading] = useState(false);
@@ -2501,10 +2539,11 @@ function App() {
     formData.append("lang", lang);
 
     try {
-      const response = await fetch("https://geoastro-stat-api-production.up.railway.app/analysis/upload", {
-        method: "POST",
-        body: formData,
-      });
+const response = await fetch(`${API_BASE_URL}/analysis/upload`, {
+  method: "POST",
+  headers: getAccessHeaders(),
+  body: formData,
+});
 
       if (!response.ok) {
         const message = await getApiErrorMessage(response);
@@ -3210,10 +3249,11 @@ function App() {
                   formData.append("female_file", femaleFile);
 
                   try {
-                    const response = await fetch("https://geoastro-stat-api-production.up.railway.app/hf-merge", {
-                      method: "POST",
-                      body: formData,
-                    });
+const response = await fetch(`${API_BASE_URL}/hf-merge`, {
+  method: "POST",
+  headers: getAccessHeaders(),
+  body: formData,
+});
 
                     if (!response.ok) {
                       alert("Erreur API H/F");
