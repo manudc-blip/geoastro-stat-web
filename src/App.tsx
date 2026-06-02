@@ -813,14 +813,12 @@ async function readFileAsText(file: File) {
 
 function estimateAnalysisDurationMs(rowCount: number, permutations: number) {
   const permFactor = permutations / 1000;
-
-  // croissance non linéaire : les grosses cohortes coûtent proportionnellement plus cher
-  const cohortFactor = Math.pow(rowCount, 1.35);
+  const cohortFactor = Math.pow(rowCount, 1.28);
 
   const estimated =
-    2500 + cohortFactor * 180 * permFactor;
+    2200 + cohortFactor * 140 * permFactor;
 
-  return Math.max(5000, Math.min(180000, estimated));
+  return Math.max(4500, Math.min(150000, estimated));
 }
 
 function buildHistogramSvg(
@@ -2549,9 +2547,9 @@ const progressTimer = window.setInterval(() => {
   const ratio = Math.min(elapsed / estimatedDuration, 1);
 
   const eased = 1 - Math.pow(1 - ratio, 2);
-  const nextProgress = 5 + eased * 80;
+  const nextProgress = 5 + eased * 85;
 
-  setProgress(Math.min(85, nextProgress));
+  setProgress(Math.min(90, nextProgress));
 }, 120);
 
     setResults([]);
