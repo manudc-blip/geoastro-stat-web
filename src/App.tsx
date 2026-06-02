@@ -811,6 +811,15 @@ async function readFileAsText(file: File) {
   return await file.text();
 }
 
+function estimateAnalysisDurationMs(rowCount: number, permutations: number) {
+  const permFactor = permutations / 1000;
+
+  const estimated =
+    2500 + rowCount * 75 * permFactor;
+
+  return Math.max(4500, Math.min(90000, estimated));
+}
+
 function buildHistogramSvg(
   rows: CsvRow[],
   category: string,
@@ -2524,15 +2533,23 @@ useEffect(() => {
   const handleUpload = async () => {
     if (!file) return;
 
-    setLoading(true);
-    setProgress(5);
+setLoading(true);
+setProgress(5);
 
-    const progressTimer = window.setInterval(() => {
-      setProgress((p) => {
-        if (p >= 99) return 99;
-        return p + 0.5;
-      });
-    }, 120);
+const fileText = await readFileAsText(file);
+const rowCount = parseCsvText(fileText).length || 1;
+const estimatedDuration = estimateAnalysisDurationMs(rowCount, permutations);
+const startedAt = Date.now();
+
+const progressTimer = window.setInterval(() => {
+  const elapsed = Date.now() - startedAt;
+  const ratio = Math.min(elapsed / estimatedDuration, 1);
+
+  const eased = 1 - Math.pow(1 - ratio, 2);
+  const nextProgress = 5 + eased * 85;
+
+  setProgress(Math.min(90, nextProgress));
+}, 120);
 
     setResults([]);
     setLastAnalysisData(null);
