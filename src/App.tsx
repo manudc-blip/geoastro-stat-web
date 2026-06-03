@@ -3417,12 +3417,15 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
                   <label style={buttonStyle}>
                     {txt.loadCsv}
 
-                  <input
-                    type="file"
-                    accept=".csv"
-                    style={{ display: "none" }}
-                  onChange={async (e) => {
-                    const f = e.target.files?.[0] ?? null;
+<input
+  type="file"
+  accept=".csv"
+  disabled={isTrialMode}
+  style={{ display: "none" }}
+  onChange={async (e) => {
+    if (isTrialMode) return;
+
+    const f = e.target.files?.[0] ?? null;
 
                     if (!f) {
                       setHistogramFile(null);
@@ -3934,12 +3937,15 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
                   style={buttonStyle}
                 >
                   {txt.loadCsv}
-                  <input
-                    type="file"
-                    accept=".csv"
-                    style={{ display: "none" }}
-                    onChange={async (e) => {
-                      const f = e.target.files?.[0] ?? null;
+<input
+  type="file"
+  accept=".csv"
+  disabled={isTrialMode}
+  style={{ display: "none" }}
+  onChange={async (e) => {
+    if (isTrialMode) return;
+
+    const f = e.target.files?.[0] ?? null;
 
                       if (!f) {
                         setCurveFile(null);
