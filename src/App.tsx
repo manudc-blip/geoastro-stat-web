@@ -4619,17 +4619,20 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
               }}
             >
               <HelpTooltip lang={lang} tooltipKey="run_analysis">
-                <button
-                  onClick={handleUpload}
-                  disabled={!file || loading}
-                  style={{
-                    ...buttonStyle,
-                    backgroundColor: loading ? "#e5e7eb" : "#f3f4f6",
-                    cursor: !file || loading ? "not-allowed" : "pointer",
-                  }}
-                >
-                  {loading ? txt.loading : txt.launch}
-                </button>
+<button
+  disabled={!file || loading || isTrialMode}
+  onClick={() => {
+    if (isTrialMode) return;
+    handleUpload();
+  }}
+  style={{
+    ...buttonStyle,
+    backgroundColor: !file || loading || isTrialMode ? "#e5e7eb" : "#f3f4f6",
+    cursor: !file || loading || isTrialMode ? "not-allowed" : "pointer",
+  }}
+>
+  {loading ? txt.loading : txt.launch}
+</button>
               </HelpTooltip>
 
               {calculationDone && !loading && (
