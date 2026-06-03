@@ -3414,7 +3414,19 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
                   position="bottom"
                   safeLeft
                 >
-                  <label style={buttonStyle}>
+<label
+  title={
+    isTrialMode
+      ? lang === "fr"
+        ? "Mode essai : chargement de fichier réservé à la version complète."
+        : "Trial mode: file loading is reserved for the full version."
+      : UI_TOOLTIPS[lang].hist_select_file
+  }
+  style={{
+    ...buttonStyle,
+    cursor: isTrialMode ? "not-allowed" : "pointer",
+  }}
+>
                     {txt.loadCsv}
 
 <input
@@ -3932,10 +3944,19 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
                   marginBottom: 8,
                 }}
               >
-                <label
-                  title={UI_TOOLTIPS[lang].curve_select_file}
-                  style={buttonStyle}
-                >
+<label
+  title={
+    isTrialMode
+      ? lang === "fr"
+        ? "Mode essai : chargement de fichier réservé à la version complète."
+        : "Trial mode: file loading is reserved for the full version."
+      : UI_TOOLTIPS[lang].curve_select_file
+  }
+  style={{
+    ...buttonStyle,
+    cursor: isTrialMode ? "not-allowed" : "pointer",
+  }}
+>
                   {txt.loadCsv}
 <input
   type="file"
