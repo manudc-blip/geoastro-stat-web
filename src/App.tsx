@@ -3102,10 +3102,14 @@ const response = await fetch(`${API_BASE_URL}/analysis/upload`, {
                   ? selectedCohort
                   : `${selectedCohort}.csv`;
 
-                const url =
-                  `https://geoastro-stat-api-production.up.railway.app/cohorts/download?lang=${lang}&name=${encodeURIComponent(filename)}`;
+const mode = isTrialMode ? "trial" : "full";
 
-                const response = await fetch(url);
+const url =
+  `${API_BASE_URL}/cohorts/download?lang=${lang}&name=${encodeURIComponent(filename)}&mode=${mode}`;
+
+const response = await fetch(url, {
+  headers: getAccessHeaders(),
+});
 
                 if (!response.ok) {
                   alert("Erreur export cohorte");
