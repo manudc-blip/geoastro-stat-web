@@ -3104,8 +3104,6 @@ const response = await fetch(`${API_BASE_URL}/analysis/upload`, {
                   ? selectedCohort
                   : `${selectedCohort}.csv`;
 
-const mode = isTrialMode ? "trial" : "full";
-
 const url =
   `${API_BASE_URL}/cohorts/download?lang=${lang}&name=${encodeURIComponent(filename)}`;
 
