@@ -4065,33 +4065,30 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
                     {txt.curvePopulation} :
                   </div>
 
-                    <select
-                      title={UI_TOOLTIPS[lang].chart_population}
-                      value={curvePopulation}
-                      onChange={(e) => setCurvePopulation(e.target.value)}
-                      disabled={
-                        curveFileType === "global" ||
-                        curveFileType === "hf" ||
-                        curveFileType === "kde"
-                      }
-                      style={{
-                        ...compactInputStyle,
-                        width: "100%",
-                        cursor: "pointer",
-                        opacity:
-                          curveFileType === "global" ||
-                          curveFileType === "hf" ||
-                          curveFileType === "kde"
-                            ? 0.7
-                            : 1,
-                      }}
-                    >
+<select
+  title={UI_TOOLTIPS[lang].chart_population}
+  value={curvePopulation}
+  onChange={(e) => setCurvePopulation(e.target.value)}
+  style={{
+    ...compactInputStyle,
+    width: "100%",
+    cursor: "pointer",
+  }}
+>
+  <option
+    value="global"
+    disabled={curveFileType === "hf"}
+  >
+    Global
+  </option>
 
-                    <option value="global">Global</option>
-                    <option value="hf">
-                      {lang === "fr" ? "Comparer H/F" : "Compare M/F"}
-                    </option>
-                  </select>
+  <option
+    value="hf"
+    disabled={curveFileType === "global" || curveFileType === "kde"}
+  >
+    {lang === "fr" ? "Comparer H/F" : "Compare M/F"}
+  </option>
+</select>
 
                   <div
                     style={{
