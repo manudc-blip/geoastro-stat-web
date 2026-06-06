@@ -3133,7 +3133,7 @@ const response = await fetch(url, {
       {activeTab === "hf" && (
         <div className="stat-hf-panel" style={{ padding: "24px 10px 40px" }}>
           <div style={{ maxWidth: 760, margin: "0 auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "150px 1fr 120px", gap: 10, alignItems: "center", marginBottom: 10 }}>
+            <div className="stat-hf-row" style={{ display: "grid", gridTemplateColumns: "150px 1fr 120px", gap: 10, alignItems: "center", marginBottom: 10 }}>
               <label>{lang === "fr" ? "Fichier Hommes :" : "Male file:"}</label>
 
               <input
@@ -3193,7 +3193,7 @@ const response = await fetch(url, {
               </HelpTooltip>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "150px 1fr 120px", gap: 10, alignItems: "center", marginBottom: 18 }}>
+            <div className="stat-hf-row" style={{ display: "grid", gridTemplateColumns: "150px 1fr 120px", gap: 10, alignItems: "center", marginBottom: 18 }}>
               <label>{lang === "fr" ? "Fichier Femmes :" : "Female file:"}</label>
 
               <input
@@ -3309,7 +3309,7 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
                 </HelpTooltip>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: 10 }}>
+            <div className="stat-hf-summary-row" style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: 10 }}>
               <HelpTooltip lang={lang} tooltipKey="hf_summary" position="right">
                 <label style={{ paddingTop: 8 }}>
                   {lang === "fr" ? "Résumé :" : "Summary:"}
@@ -3333,9 +3333,10 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
         </div>
       )}
 
-      {activeTab === "histograms" && (
-        <div
-          style={{
+{activeTab === "histograms" && (
+  <div
+    className="stat-chart-panel"
+    style={{
             display: "flex",
             flexDirection: "column",
             height: "calc(100vh - 44px)",
@@ -3870,9 +3871,10 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
         </div>
       )}
 
-      {activeTab === "curves" && (
-        <div
-          style={{
+{activeTab === "curves" && (
+  <div
+    className="stat-chart-panel"
+    style={{
             display: "flex",
             flexDirection: "column",
             height: "calc(100vh - 44px)",
