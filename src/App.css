@@ -369,9 +369,22 @@
     width: 100% !important;
   }
 
-  .stat-cohorts-panel table {
-    min-width: 760px !important;
-  }
+.stat-cohorts-panel {
+  overflow-x: auto !important;
+  padding: 18px 8px 40px !important;
+}
+
+.stat-cohorts-panel table {
+  min-width: 640px !important;
+  width: max-content !important;
+  font-size: 12px !important;
+}
+
+.stat-cohorts-panel th,
+.stat-cohorts-panel td {
+  padding: 4px 6px !important;
+  white-space: nowrap !important;
+}
 }
 
 @media (max-width: 768px) {
