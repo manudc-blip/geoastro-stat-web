@@ -303,3 +303,40 @@
   right: 28px;
   transform: rotate(45deg);
 }
+
+@media (max-width: 768px) {
+  .stat-logo-block {
+    display: none !important;
+  }
+
+  .stat-tabs {
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .stat-tab {
+    min-width: 120px !important;
+    text-align: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .stat-analysis-controls {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .stat-analysis-controls fieldset {
+    max-width: none !important;
+    width: 100% !important;
+    padding: 10px 12px !important;
+  }
+
+  .stat-results-zone {
+    padding: 6px 8px !important;
+  }
+
+  .stat-results-zone > div {
+    min-height: 260px !important;
+    height: auto !important;
+  }
+}
