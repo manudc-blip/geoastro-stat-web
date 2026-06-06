@@ -355,3 +355,21 @@
     height: auto !important;
   }
 }
+
+@media (max-width: 768px) {
+  .stat-hf-panel,
+  .stat-cohorts-panel {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: auto !important;
+  }
+
+  .stat-hf-panel > div {
+    max-width: none !important;
+    width: 100% !important;
+  }
+
+  .stat-cohorts-panel table {
+    min-width: 760px !important;
+  }
+}
