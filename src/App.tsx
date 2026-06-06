@@ -2896,7 +2896,7 @@ const response = await fetch(`${API_BASE_URL}/analysis/upload`, {
       </div>
 
       {activeTab === "cohorts" && (
-        <div style={{ padding: "24px 10px 40px" }}>
+        <div className="stat-cohorts-panel" style={{ padding: "24px 10px 40px" }}>
           <h2 style={{ textAlign: "center", fontSize: 18 }}>
             Modèle CSV (FR)
           </h2>
@@ -3131,7 +3131,7 @@ const response = await fetch(url, {
       )}
 
       {activeTab === "hf" && (
-        <div style={{ padding: "24px 10px 40px" }}>
+        <div className="stat-hf-panel" style={{ padding: "24px 10px 40px" }}>
           <div style={{ maxWidth: 760, margin: "0 auto" }}>
             <div style={{ display: "grid", gridTemplateColumns: "150px 1fr 120px", gap: 10, alignItems: "center", marginBottom: 10 }}>
               <label>{lang === "fr" ? "Fichier Hommes :" : "Male file:"}</label>
@@ -3349,6 +3349,7 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
             }}
           >
             <div
+              className="stat-logo-block"
               style={{
                 position: "absolute",
                 left: 68,
@@ -3885,6 +3886,7 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
             }}
           >
             <div
+              className="stat-logo-block"
               style={{
                 position: "absolute",
                 left: 68,
