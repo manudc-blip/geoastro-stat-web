@@ -2824,13 +2824,14 @@ const response = await fetch(`${API_BASE_URL}/analysis/upload`, {
         color: "#111827",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          borderBottom: `1px solid ${BORDER}`,
-          backgroundColor: TAB_BG,
-        }}
-      >
+<div
+  className="stat-tabs"
+  style={{
+    display: "flex",
+    borderBottom: `1px solid ${BORDER}`,
+    backgroundColor: TAB_BG,
+  }}
+>
         {[
           { key: "analysis", label: txt.analysis },
           { key: "cohorts", label: txt.cohorts },
@@ -2845,9 +2846,10 @@ const response = await fetch(`${API_BASE_URL}/analysis/upload`, {
             position="bottom"
             safeLeft={tab.key === "analysis" || tab.key === "cohorts"}
           >
-            <div
-              onClick={() => setActiveTab(tab.key)}
-            style={{
+<div
+  className="stat-tab"
+  onClick={() => setActiveTab(tab.key)}
+  style={{
               padding: "8px 20px",
               borderRight: `1px solid ${BORDER}`,
               borderTop:
@@ -4435,15 +4437,16 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
           padding: "8px 10px 4px",
         }}
       >
-        <div
-          style={{
-            position: "absolute",
-            left: 68,
-            top: 36,
-            width: 220,
-            textAlign: "center",
-          }}
-        >
+<div
+  className="stat-logo-block"
+  style={{
+    position: "absolute",
+    left: 68,
+    top: 36,
+    width: 220,
+    textAlign: "center",
+  }}
+>
           <div
             style={{
               fontSize: 42,
@@ -4489,7 +4492,7 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
         </HelpTooltip>
         </div>
 
-        <div style={{ width: 620, margin: "0 auto" }}>
+        <div className="stat-analysis-controls" style={{ width: 620, margin: "0 auto" }}>
           <fieldset
             style={{
               maxWidth: 620,
