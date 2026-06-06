@@ -357,11 +357,11 @@
 }
 
 @media (max-width: 768px) {
-  .stat-hf-panel,
-  .stat-cohorts-panel {
-    width: 100% !important;
+  .stat-hf-panel {
+    width: calc(100vw - 24px) !important;
+    padding: 18px 12px 30px !important;
     box-sizing: border-box !important;
-    overflow-x: auto !important;
+    overflow-x: hidden !important;
   }
 
   .stat-hf-panel > div {
@@ -369,25 +369,25 @@
     width: 100% !important;
   }
 
-.stat-cohorts-panel {
-  overflow-x: auto !important;
-  padding: 18px 8px 40px !important;
-}
+  .stat-hf-row {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+  }
 
-.stat-cohorts-panel table {
-  min-width: 640px !important;
-  width: max-content !important;
-  font-size: 12px !important;
-}
+  .stat-hf-row input {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
 
-.stat-cohorts-panel th,
-.stat-cohorts-panel td {
-  padding: 4px 6px !important;
-  white-space: nowrap !important;
-}
-}
+  .stat-hf-summary-row {
+    grid-template-columns: 1fr !important;
+  }
 
-@media (max-width: 768px) {
+  .stat-hf-summary-row textarea {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
   .stat-chart-panel {
     height: auto !important;
     min-height: 100vh !important;
@@ -414,39 +414,38 @@
     box-sizing: border-box !important;
   }
 
-  .stat-hf-panel {
-    width: calc(100vw - 24px) !important;
-    padding: 18px 12px 30px !important;
+  .stat-cohorts-panel {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    padding: 18px 0 30px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
     overflow-x: hidden !important;
   }
 
-  .stat-hf-row {
-    grid-template-columns: 1fr !important;
-    gap: 6px !important;
-  }
-
-  .stat-hf-row input {
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  .stat-hf-summary-row {
-    grid-template-columns: 1fr !important;
-  }
-
-  .stat-hf-summary-row textarea {
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  .stat-cohorts-panel {
-    width: calc(100vw - 24px) !important;
-    padding: 18px 12px 30px !important;
-    box-sizing: border-box !important;
-    overflow-x: auto !important;
+  .stat-cohorts-panel h2 {
+    font-size: 18px !important;
+    margin: 16px 0 10px !important;
   }
 
   .stat-cohorts-panel table {
-    min-width: 680px !important;
+    display: block !important;
+    width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+    margin: 0 auto 12px !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    font-size: 12px !important;
+  }
+
+  .stat-cohorts-panel th,
+  .stat-cohorts-panel td {
+    padding: 4px 8px !important;
+    white-space: nowrap !important;
+  }
+
+  .stat-cohorts-panel p {
+    padding: 0 18px !important;
+    box-sizing: border-box !important;
   }
 }
