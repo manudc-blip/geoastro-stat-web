@@ -373,3 +373,67 @@
     min-width: 760px !important;
   }
 }
+
+@media (max-width: 768px) {
+  .stat-chart-panel {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-x: hidden !important;
+  }
+
+  .stat-chart-panel > div:first-child {
+    min-height: auto !important;
+    padding: 8px 10px 0 !important;
+  }
+
+  .stat-chart-panel fieldset {
+    width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+    margin: 6px auto 10px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  .stat-chart-panel fieldset input[readonly],
+  .stat-chart-panel fieldset input[type="text"],
+  .stat-chart-panel fieldset select {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .stat-hf-panel {
+    width: calc(100vw - 24px) !important;
+    padding: 18px 12px 30px !important;
+    overflow-x: hidden !important;
+  }
+
+  .stat-hf-row {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+  }
+
+  .stat-hf-row input {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .stat-hf-summary-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .stat-hf-summary-row textarea {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .stat-cohorts-panel {
+    width: calc(100vw - 24px) !important;
+    padding: 18px 12px 30px !important;
+    box-sizing: border-box !important;
+    overflow-x: auto !important;
+  }
+
+  .stat-cohorts-panel table {
+    min-width: 680px !important;
+  }
+}
