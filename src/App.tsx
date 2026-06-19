@@ -2506,12 +2506,9 @@ const kdeFile = new File([kdeText], "fields_kde.csv", {
 
 setCurveFile(kdeFile);
 setCurveRows(kdeRows);
-setCurveFile(resultsFile);
-setCurveRows(resultsRows);
-setCurveFileType("global");
+setCurveFileType("kde");
 setCurvePopulation("global");
 setCurveMode("gauss");
-setCurveGeneratedOnce(true);
 setCurveGeneratedOnce(true);
 
       setActiveTab("analysis");
@@ -4145,7 +4142,6 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
                       type="radio"
                       checked={curveMode === "kde"}
                       disabled={curveFileType !== "kde"}
-                      }
                       onChange={() => {
                         setCurveMode("kde");
                         setCurvePopulation("global");
