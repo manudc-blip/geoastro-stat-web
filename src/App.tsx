@@ -2506,9 +2506,12 @@ const kdeFile = new File([kdeText], "fields_kde.csv", {
 
 setCurveFile(kdeFile);
 setCurveRows(kdeRows);
-setCurveFileType("kde");
+setCurveFile(resultsFile);
+setCurveRows(resultsRows);
+setCurveFileType("global");
 setCurvePopulation("global");
-setCurveMode("kde");
+setCurveMode("gauss");
+setCurveGeneratedOnce(true);
 setCurveGeneratedOnce(true);
 
       setActiveTab("analysis");
