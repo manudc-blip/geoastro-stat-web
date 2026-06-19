@@ -2473,7 +2473,7 @@ useEffect(() => {
     async function loadTrialFields() {
       const trialBaseUrl = "/trial";
 
-      const [cohortText, resultsText] = await Promise.all([
+      const [cohortText, resultsText, kdeText] = await Promise.all([
         fetch(`${trialBaseUrl}/fields_cohort.csv`).then((r) => r.text()),
         fetch(`${trialBaseUrl}/fields_results.csv`).then((r) => r.text()),
         fetch(`${trialBaseUrl}/fields_kde.csv`).then((r) => r.text()),
