@@ -1514,9 +1514,11 @@ function getCurveValue(row: CsvRow) {
     "Pourcentage",
     "Proba empirique (surval)",
     "Proba empirique (surv)",
-    "effectif_reel",
+    "p_gt",
+    "pval_gt",
     "effectif_rel",
     "sample_mean",
+    "effectif_reel",
   ];
 
   for (const key of candidates) {
