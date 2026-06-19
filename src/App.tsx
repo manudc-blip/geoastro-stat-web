@@ -2509,7 +2509,7 @@ setCurveRows(kdeRows);
 setCurveFileType("kde");
 setCurvePopulation("global");
 setCurveMode("kde");
-setCurveGeneratedOnce(false);
+setCurveGeneratedOnce(true);
 
       setActiveTab("analysis");
     }
