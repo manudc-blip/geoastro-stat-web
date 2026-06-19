@@ -4039,7 +4039,7 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
                         setCurveMode("gauss");
                       } else if (fileType === "kde") {
                         setCurvePopulation("global");
-                        setCurveMode("kde");
+                        setCurveMode("gauss");
                       } else {
                         setCurvePopulation("global");
                         setCurveMode("gauss");
@@ -4144,9 +4144,7 @@ const response = await fetch(`${API_BASE_URL}/hf-merge`, {
                     <input
                       type="radio"
                       checked={curveMode === "kde"}
-                      disabled={
-                        curveFileType === "global" ||
-                        curveFileType === "hf"
+                      disabled={curveFileType !== "kde"}
                       }
                       onChange={() => {
                         setCurveMode("kde");
