@@ -2476,9 +2476,11 @@ useEffect(() => {
       const [cohortText, resultsText] = await Promise.all([
         fetch(`${trialBaseUrl}/fields_cohort.csv`).then((r) => r.text()),
         fetch(`${trialBaseUrl}/fields_results.csv`).then((r) => r.text()),
+        fetch(`${trialBaseUrl}/fields_kde.csv`).then((r) => r.text()),
       ]);
 
       const resultsRows = parseCsvText(resultsText);
+      const kdeRows = parseCsvText(kdeText);
 
       const cohortFile = new File([cohortText], "Les médaillés Fields.csv", {
         type: "text/csv",
@@ -2498,12 +2500,16 @@ useEffect(() => {
       setHistogramPopulation("global");
       setHistogramNeedsManualGenerate(false);
 
-      setCurveFile(resultsFile);
-      setCurveRows(resultsRows);
-      setCurveFileType("global");
-      setCurvePopulation("global");
-      setCurveMode("gauss");
-      setCurveGeneratedOnce(true);
+const kdeFile = new File([kdeText], "fields_kde.csv", {
+  type: "text/csv",
+});
+
+setCurveFile(kdeFile);
+setCurveRows(kdeRows);
+setCurveFileType("kde");
+setCurvePopulation("global");
+setCurveMode("kde");
+setCurveGeneratedOnce(false);
 
       setActiveTab("analysis");
     }
