@@ -1533,6 +1533,16 @@ function getCurveValue(row: CsvRow) {
   return NaN;
 }
 
+function getKdeObservedValue(row: CsvRow) {
+  const n = toNumber(
+    row["effectif_reel"] ??
+    row["sample_mean"] ??
+    row["Pourcentage"]
+  );
+
+  return Number.isFinite(n) ? n : NaN;
+}
+
 function getCurveZ(row: CsvRow, value: number) {
   const raw =
     row["Z-score"] ??
@@ -2145,7 +2155,7 @@ function buildKdeCurveSvg(
   if (values.length < 3) return "";
 
   const observed =
-    getCurveValue(row);
+    getKdeObservedValue(row);
 
   const expected =
     toNumber(row["moyenne"] ?? row["distribution_mean"] ?? row["Mean of distribution"] ?? row["Expected mean"]);
