@@ -2334,7 +2334,7 @@ async function exportSvgDataUrlAsPng(dataUrl: string, filename: string) {
     img.onload = () => resolve();
   });
 
-  const footerHeight = 42;
+  const footerHeight = 34;
 
   const canvas = document.createElement("canvas");
   canvas.width = img.width;
@@ -2352,7 +2352,7 @@ async function exportSvgDataUrlAsPng(dataUrl: string, filename: string) {
   ctx.font = "500 12px Segoe UI, Arial, sans-serif";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText("© 2025 GéoAstro v1.0", canvas.width / 2, img.height + 24);
+  ctx.fillText("© 2025 GéoAstro v1.0", canvas.width / 2, img.height + 18);
 
   const blob = await new Promise<Blob | null>((resolve) => {
     canvas.toBlob((b) => resolve(b), "image/png");
