@@ -821,6 +821,21 @@ function estimateAnalysisDurationMs(rowCount: number, permutations: number) {
   return Math.max(4500, Math.min(150000, estimated));
 }
 
+function svgFooter(width: number, height: number) {
+  return `
+    <text
+      x="${width / 2}"
+      y="${height - 8}"
+      text-anchor="middle"
+      font-size="12"
+      font-weight="500"
+      fill="#6b7280"
+    >
+      © 2025 GéoAstro v1.0
+    </text>
+  `;
+}
+
 function buildHistogramSvg(
   rows: CsvRow[],
   category: string,
@@ -1005,6 +1020,8 @@ function buildHistogramSvg(
           stroke-opacity="0.55"
           stroke-dasharray="${v % 20 === 0 ? "0" : "4 3"}"/>
       `).join("")}
+
+      ${svgFooter(width, height)}
     </svg>
   `;
 }
@@ -1481,6 +1498,8 @@ function buildHistogramSvgHF(
           `
         )
         .join("")}
+
+        ${svgFooter(width, height)}
     </svg>
   `;
 }
@@ -1934,6 +1953,8 @@ function buildGaussCurveSvg(
 
         ${lang === "fr" ? "Densité" : "Density"}
       </text>
+
+      ${svgFooter(width, height)}
     </svg>
   `;
 }
@@ -2135,6 +2156,8 @@ function buildGaussCurveSvgHF(
       <text x="18" y="${margin.top + chartH / 2}" transform="rotate(-90 18 ${margin.top + chartH / 2})" text-anchor="middle" font-size="16" font-weight="600" fill="#111827">
         ${lang === "fr" ? "Densité" : "Density"}
       </text>
+
+      ${svgFooter(width, height)}
     </svg>
   `;
 }
@@ -2322,6 +2345,8 @@ function buildKdeCurveSvg(
       <text x="18" y="${margin.top + chartH / 2}" transform="rotate(-90 18 ${margin.top + chartH / 2})" text-anchor="middle" font-size="16" font-weight="600" fill="#111827">
         ${lang === "fr" ? "Densité" : "Density"}
       </text>
+
+      ${svgFooter(width, height)}
     </svg>
   `;
 }
