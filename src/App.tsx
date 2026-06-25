@@ -854,7 +854,7 @@ function buildHistogramSvg(
 
   const width = 1200;
   const height = 650;
-  const margin = { top: 48, right: 24, bottom: 48, left: 66 };
+  const margin = { top: 48, right: 44, bottom: 48, left: 66 };
   const chartW = width - margin.left - margin.right;
   const chartH = height - margin.top - margin.bottom;
 
